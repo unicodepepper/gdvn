@@ -1,0 +1,15 @@
+each character has stamina and motivation
+
+motivation: 0
+stamina: 100
+
+things you gotta take care off:
+-argument
+-story
+-gameplay
+-characters
+-backgrounds
+-music
+-pre-launch buzz
+
+each aspect of the game will have X steps, and depending on your stamina/motivation you'll have to cut corners on some of them. You can redo previous aspects, as well; but it wastes time. You can also use items on people or talk to them to improve their motivation/stamina and ask them to do stuff.

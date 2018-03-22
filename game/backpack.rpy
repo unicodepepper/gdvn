@@ -1,16 +1,6 @@
 default backpack_items = []
 
 
-init:
-    python:
-        class thing():
-            def __init__(self, name="???", description="This item doesn't exist.", image="exitbutton_hover.png", action=None):
-                self.name=name
-                self.description=description
-                self.image=image
-                self.action=action
-                pass
-
 screen backpack():
     vbox:
         xalign 0.5
