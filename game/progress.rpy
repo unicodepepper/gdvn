@@ -6,6 +6,8 @@ default dateint  =-1
 default datestr  = ""
 default displaytime=""
 
+default show_stats=True
+
 label time_advance():
     python:
         clockint+=1                                 #advance the time
@@ -16,6 +18,8 @@ label time_advance():
         datestr = weekdays[dateWeekModulo]
         clockstr= times[clockint]
         displaytime = "it's "+datestr+" at "+clockstr+"."
+        for i in characterlist:
+            i.action=""
     return
 
 screen stats_screen:
@@ -32,3 +36,4 @@ screen stats_screen:
                     ui.text("there is 1 item in your backpack.")
                 else:
                     ui.text("there are "+str(len(backpack_items))+" items in your backpack.")
+            

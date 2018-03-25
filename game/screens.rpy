@@ -244,7 +244,7 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 100
-
+    use stats_screen
     if quick_menu:
 
         hbox:
@@ -1507,8 +1507,3 @@ style slider_pref_vbox:
 style slider_pref_slider:
     variant "small"
     xsize 600
-
-
-
-
-
