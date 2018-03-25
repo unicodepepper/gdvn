@@ -18,8 +18,7 @@ label time_advance():
         datestr = weekdays[dateWeekModulo]
         clockstr= times[clockint]
         displaytime = "it's "+datestr+" at "+clockstr+"."
-        for i in characterlist:
-            i.action=""
+        renpy.call("game_advance")
     return
 
 screen stats_screen:
@@ -36,4 +35,24 @@ screen stats_screen:
                     ui.text("there is 1 item in your backpack.")
                 else:
                     ui.text("there are "+str(len(backpack_items))+" items in your backpack.")
-            
+
+screen game_status:
+    vbox:
+        for i in game_status.keys():
+            hbox:
+                xsize 50
+                text str(game_status[i])+"% "
+                text i
+        frame:
+            textbutton "ok" action Return()
+
+label game_advance:
+    python:
+        for i in characterlist:
+            try:
+                game_status[i.action]+=((i.stamina*i.motivation)/i.hunger)
+            except KeyError:
+                pass
+            i.action=""
+        renpy.display_menu([(None,None)],screen="game_status")
+    return

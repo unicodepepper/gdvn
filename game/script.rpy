@@ -4,8 +4,7 @@ init:
             def __init__(self,name="",location="home"):
                 self.stamina=6
                 self.motivation=1
-                self.sleep=6
-                self.ate=1
+                self.hunger=1
                 self.recruited=False
                 self.location=location
                 self.name=name
@@ -23,13 +22,13 @@ default dave=mycharacter(name="dave",location="cafe")
 default player=mycharacter(name="you",location="home")
 default characterlist=[skye,dave,player]
 
-default game_status={   "plot"        :[0,0,0],
-                        "writing"     :[0,0,0],
-                        "gameplay"    :[0,0,0],
-                        "characters"  :[0,0,0],
-                        "backgrounds" :[0,0,0],
-                        "music"       :[0,0,0],
-                        "hype"        :[0,0,0]}
+default game_status={   "plot"        :0,
+                        "writing"     :0,
+                        "gameplay"    :0,
+                        "characters"  :0,
+                        "backgrounds" :0,
+                        "music"       :0,
+                        "hype"        :0}
 
 label start:
     "woo, I just started the game"
