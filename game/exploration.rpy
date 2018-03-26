@@ -25,7 +25,7 @@ label mainloop:
 label charmenu(character):
     menu:
         "I've got something for you.":
-            call backpack(character)
+            call backpackmenu(character)
         "Can you help me do something?":
             call workmenu(character)
     return
@@ -36,13 +36,12 @@ label workmenu(character):
         worklist=[]
         for i in game_status.keys():
             worklist.append(("work in the "+i,i))
-        workaction=renpy.display_menu(worklist)
-        character.action=workaction
+        character.action=renpy.display_menu(worklist)
     if character.name=="you":
-        "you're gonna focus on the [workaction] of the game."
+        "you're gonna focus on the [character.action] of the game."
         call time_advance
     else:
-        "[character.name] is gonna focus on the [workaction] of the game."
+        "[character.name] is gonna focus on the [character.action] of the game."
 
     return
 
@@ -51,6 +50,5 @@ label travelmenu():
         travellist=[]
         for i in connections[player.location]:
             travellist.append(("go to the "+i,i))
-        travelaction=renpy.display_menu(travellist)
-        player.location=travelaction
-    call expression travelaction
+        player.location=renpy.display_menu(travellist)
+    call expression player.location

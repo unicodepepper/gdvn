@@ -2,7 +2,13 @@ default backpack_items = []
 
 
 label backpackmenu(character):
-    "you're opening the backpack for [character.name]"
+    python:
+        backpacklist=[]
+        for i in backpack_items:
+            backpacklist.append((i.name,i.action))
+        renpy.call(renpy.display_menu(backpacklist),character)
+
+
     return
 
 
@@ -51,9 +57,23 @@ init:
                 self.action=action
                 pass
 
-$brick=myitem(name="Brick.", description="It's a brick.",action="brickaction")
+        brick=myitem(name="brick", description="It's a brick.",action="brickaction")
+        food=myitem(name="food", description="it's food",action="foodaction")
 
-label brickaction:
-    "you hold the brick."
+label brickaction(character):
+    if character.name=="you":
+        "you hold the brick."
+    else:
+        "[character.name] holds the brick."
     "it's a bit heavy."
+    "[character.name] feels revigorized."
+    $character.stamina=6
     return
+
+label foodaction(character):
+    if character.name == "you":
+        "you eat the food"
+    else:
+        "[character.name] eats the food"
+    $character.hunger=1
+    $backpack_items.remove(food)

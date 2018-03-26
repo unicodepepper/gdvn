@@ -21,6 +21,12 @@ label time_advance():
         renpy.call("game_advance")
     return
 
+screen charstats(character):
+    #vbox:
+        text character.name+"'s stamina: "+str(character.stamina) xalign 1.0
+        text character.name+"'s motivation: "+str(character.motivation) xalign 1.0
+        text character.name+"'s hunger: "+str(character.hunger) xalign 1.0
+
 screen stats_screen:
     zorder 100
     style_prefix "stats"
@@ -35,6 +41,11 @@ screen stats_screen:
                     ui.text("there is 1 item in your backpack.")
                 else:
                     ui.text("there are "+str(len(backpack_items))+" items in your backpack.")
+            text "you're at the [player.location]" xalign 1.0
+            for i in characterlist:
+                text ""
+                use charstats(i)
+
 
 screen game_status:
     vbox:
@@ -49,10 +60,17 @@ screen game_status:
 label game_advance:
     python:
         for i in characterlist:
-            try:
-                game_status[i.action]+=((i.stamina*i.motivation)/i.hunger)
-            except KeyError:
-                pass
-            i.action=""
+            if i.action!="":
+                try:
+                    game_status[i.action]+=((i.stamina*i.motivation)/i.hunger)
+                    i.stamina-=2
+                    i.hunger+=2
+                except KeyError:
+                    pass
+                i.action=""
+            else:
+                i.stamina +=2
+                i.hunger+=2
+            #TODO cap stamina, hunger and motivation at 10 AND make them unchanged while the character is not recruited
         renpy.display_menu([(None,None)],screen="game_status")
     return
