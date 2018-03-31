@@ -13,3 +13,10 @@ things you gotta take care off:
 -pre-launch buzz
 
 each aspect of the game will have X steps, and depending on your stamina/motivation you'll have to cut corners on some of them. You can redo previous aspects, as well; but it wastes time. You can also use items on people or talk to them to improve their motivation/stamina and ask them to do stuff.
+
+
+
+
+#TODO: make the brick a recruiting tool
+        make you able to starve to death
+        

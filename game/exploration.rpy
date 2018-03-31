@@ -26,7 +26,7 @@ label charmenu(character):
     menu:
         "I've got something for you.":
             call backpackmenu(character)
-        "Can you help me do something?":
+        "Can you help me do something?" if character.recruited:
             call workmenu(character)
     return
 
@@ -35,10 +35,11 @@ label workmenu(character):
     python:
         worklist=[]
         for i in game_status.keys():
-            worklist.append(("work in the "+i,i))
+            if character.skills[i]>0:
+                worklist.append(("work in the "+i+" (skill: "+str(character.skills[i])+")",i))
         character.action=renpy.display_menu(worklist)
     if character.name=="you":
-        "you're gonna focus on the [character.action] of the game."
+        "I think I'm gonna focus on the [character.action] of the game."
         call time_advance
     else:
         "[character.name] is gonna focus on the [character.action] of the game."

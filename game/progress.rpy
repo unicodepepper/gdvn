@@ -1,10 +1,10 @@
 default weekdays = ("sunday","monday","tuesday","wednesday","thursday","friday","saturday")
 default times = ("dawn","noon","dusk","midnight")
-default clockint = 3
+default clockint = 0
 default clockstr = ""
-default dateint  =-1
+default dateint  = 1
 default datestr  = ""
-default displaytime=""
+default displaytime="it's sunday 1 at dawn"
 
 default show_stats=True
 
@@ -17,23 +17,26 @@ label time_advance():
         dateWeekModulo = dateint%7                  #set display text
         datestr = weekdays[dateWeekModulo]
         clockstr= times[clockint]
-        displaytime = "it's "+datestr+" at "+clockstr+"."
+        displaytime = "it's "+datestr+" "+str(dateint)+" at "+clockstr+"."
         renpy.call("game_advance")
     return
 
 screen charstats(character):
-    #vbox:
+    if character.name=="you":
+        text "your stamina: "+str(character.stamina) xalign 1.0
+        text "your hunger: "+str(character.hunger) xalign 1.0
+    else:
         text character.name+"'s stamina: "+str(character.stamina) xalign 1.0
-        text character.name+"'s motivation: "+str(character.motivation) xalign 1.0
         text character.name+"'s hunger: "+str(character.hunger) xalign 1.0
 
 screen stats_screen:
     zorder 100
     style_prefix "stats"
     if show_stats:
+      frame:
+        xalign 1.0
+        yalign 0.0
         vbox:
-            xalign 1.0
-            yalign 0.0
             if displaytime:
                 text "[displaytime]" xalign 1.0
             python:
@@ -43,8 +46,9 @@ screen stats_screen:
                     ui.text("there are "+str(len(backpack_items))+" items in your backpack.")
             text "you're at the [player.location]" xalign 1.0
             for i in characterlist:
-                text ""
-                use charstats(i)
+                if i.recruited==True:
+                    text ""
+                    use charstats(i)
 
 
 screen game_status:
@@ -60,9 +64,10 @@ screen game_status:
 label game_advance:
     python:
         for i in characterlist:
+          if character.recruited:
             if i.action!="":
                 try:
-                    game_status[i.action]+=((i.stamina*i.motivation)/i.hunger)
+                    game_status[i.action]+=((i.stamina*i.skills[i.action])/i.hunger)
                     i.stamina-=2
                     i.hunger+=2
                 except KeyError:
@@ -71,6 +76,13 @@ label game_advance:
             else:
                 i.stamina +=2
                 i.hunger+=2
-            #TODO cap stamina, hunger and motivation at 10 AND make them unchanged while the character is not recruited
+            if i.stamina>10:
+                i.stamina=10
+            elif i.stamina<1:
+                i.stamina=1
+            if i.hunger>10:
+                i.hunger=10
+            elif i.hunger<1:
+                i.hunger=1
         renpy.display_menu([(None,None)],screen="game_status")
     return
