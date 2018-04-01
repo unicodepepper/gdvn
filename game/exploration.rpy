@@ -38,11 +38,11 @@ label workmenu(character):
             if character.skills[i]>0:
                 worklist.append(("work in the "+i+" (skill: "+str(character.skills[i])+")",i))
         character.action=renpy.display_menu(worklist)
-    if character.name=="you":
+    if character.sayer.name=="You":
         "I think I'm gonna focus on the [character.action] of the game."
         call time_advance
     else:
-        "[character.name] is gonna focus on the [character.action] of the game."
+        "[character.sayer.name] is gonna focus on the [character.action] of the game."
 
     return
 

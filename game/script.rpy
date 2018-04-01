@@ -1,7 +1,11 @@
 init:
     python:
+        d = Character(name="Dave")
+        s = Character(name="Skye")
+        p = Character(name="You")
+
         class mycharacter:
-            def __init__(self,name="",location="home",skills={  "plot"        :0,
+            def __init__(self,sayer=None,location="home",skills={  "plot"        :0,
                                                                 "writing"     :1,
                                                                 "gameplay"    :4,
                                                                 "characters"  :7,
@@ -12,7 +16,7 @@ init:
                 self.hunger=5
                 self.recruited=False
                 self.location=location
-                self.name=name
+                self.sayer=sayer
                 self.action=""
                 self.skills=skills
 
@@ -22,9 +26,9 @@ default connections = { "home":["city"],
                         "park":["city","forest"],
                       "forest":["park"]}
 
-default skye=mycharacter(name="skye",location="park")
-default dave=mycharacter(name="dave",location="cafe")
-default player=mycharacter(name="you",location="home")
+default skye=mycharacter(sayer=s,location="park")
+default dave=mycharacter(sayer=d,location="cafe")
+default player=mycharacter(sayer=p,location="home")
 default characterlist=[skye,dave,player]
 default game_status={   "plot"        :0,
                         "writing"     :0,
@@ -35,9 +39,6 @@ default game_status={   "plot"        :0,
                         "hype"        :0}
 
 
-$ d = Character(name="Dave")
-$ s = Character(name="Skye")
-$ p = Character(name="You")
 
 image bg room = ConditionSwitch("clockint==0", "bg room dawn.jpg",
                                 "clockint==1", "bg room noon.jpg",

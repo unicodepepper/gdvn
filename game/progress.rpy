@@ -22,12 +22,12 @@ label time_advance():
     return
 
 screen charstats(character):
-    if character.name=="you":
+    if character.sayer.name=="You":
         text "your stamina: "+str(character.stamina) xalign 1.0
         text "your hunger: "+str(character.hunger) xalign 1.0
     else:
-        text character.name+"'s stamina: "+str(character.stamina) xalign 1.0
-        text character.name+"'s hunger: "+str(character.hunger) xalign 1.0
+        text character.sayer.name+"'s stamina: "+str(character.stamina) xalign 1.0
+        text character.sayer.name+"'s hunger: "+str(character.hunger) xalign 1.0
 
 screen stats_screen:
     zorder 100

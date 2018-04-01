@@ -58,22 +58,28 @@ init:
                 pass
 
         brick=myitem(name="brick", description="It's a brick.",action="brickaction")
+        yesbrick=myitem(name="brick that makes you say yes", description="It's a brick.",action="yesbrickaction")
         food=myitem(name="food", description="it's food",action="foodaction")
 
 label brickaction(character):
-    if character.name=="you":
+    if character.sayer.name=="You":
         "you hold the brick."
     else:
-        "[character.name] holds the brick."
-    "it's a bit heavy."
-    "[character.name] feels revigorized."
+        "[character.sayer.name] holds the brick."
+    $character.sayer("it's a bit heavy.")
+    "[character.sayer.name] feels revigorized."
     $character.stamina=6
     return
 
 label foodaction(character):
-    if character.name == "you":
+    if character.sayer.name == "You":
         "you eat the food"
     else:
-        "[character.name] eats the food"
+        "[character.sayer.name] eats the food"
     $character.hunger=1
     $backpack_items.remove(food)
+
+label yesbrickaction(character):
+    "[character.sayer.name] holds the brick."
+    $character.sayer("Yes")
+    return
