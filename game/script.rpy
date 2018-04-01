@@ -5,13 +5,13 @@ init:
         p = Character(name="You")
 
         class mycharacter:
-            def __init__(self,sayer=None,location="home",skills={  "plot"        :0,
-                                                                "writing"     :1,
-                                                                "gameplay"    :4,
-                                                                "characters"  :7,
-                                                                "backgrounds" :9,
-                                                                "music"       :0,
-                                                                "hype"        :0}):
+            def __init__(self,sayer=None,location="home",skills={   "plot"        :2,
+                                                                    "writing"     :2,
+                                                                    "gameplay"    :2,
+                                                                    "characters"  :2,
+                                                                    "backgrounds" :2,
+                                                                    "music"       :2,
+                                                                    "hype"        :2}):
                 self.stamina=6
                 self.hunger=5
                 self.recruited=False
@@ -26,8 +26,21 @@ default connections = { "home":["city"],
                         "park":["city","forest"],
                       "forest":["park"]}
 
-default skye=mycharacter(sayer=s,location="park")
-default dave=mycharacter(sayer=d,location="cafe")
+default skye=mycharacter(sayer=s,location="park",skills={   "plot"        :0,
+                                                            "writing"     :0,
+                                                            "gameplay"    :0,
+                                                            "characters"  :6,
+                                                            "backgrounds" :3,
+                                                            "music"       :5,
+                                                            "hype"        :0})
+
+default dave=mycharacter(sayer=d,location="cafe",skills={   "plot"        :4,
+                                                            "writing"     :6,
+                                                            "gameplay"    :5,
+                                                            "characters"  :5,
+                                                            "backgrounds" :3,
+                                                            "music"       :0,
+                                                            "hype"        :4})
 default player=mycharacter(sayer=p,location="home")
 default characterlist=[skye,dave,player]
 default game_status={   "plot"        :0,

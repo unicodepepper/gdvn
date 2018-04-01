@@ -13,6 +13,7 @@ label backpackmenu(character):
 
 
     ## below is the fancy backpack screen, which I've disabled for testing purposes
+
     # vbox:
     #     viewport:
     #         scrollbars "vertical"
